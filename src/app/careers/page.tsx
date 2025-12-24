@@ -7,14 +7,14 @@ type Job = {
   _id: string;
   title: string;
   description?: string;
-  location?: string;
+  requiredSkills?: string;
   createdAt: string;
 };
 
 export default function CareersPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [query, setQuery] = useState("");
-  const [locationFilter, setLocationFilter] = useState("");
+  const [skillsFilter, setSkillsFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +27,7 @@ export default function CareersPage() {
   }, []);
 
   const locations = useMemo(() => {
-    return Array.from(new Set(jobs.map((j) => j.location).filter(Boolean)));
+    return Array.from(new Set(jobs.map((j) => j.requiredSkills).filter(Boolean)));
   }, [jobs]);
 
   const filtered = useMemo(() => {
@@ -37,9 +37,9 @@ export default function CareersPage() {
         (!q ||
           j.title.toLowerCase().includes(q) ||
           (j.description || "").toLowerCase().includes(q)) &&
-        (!locationFilter || j.location === locationFilter)
+        (!skillsFilter || j.requiredSkills === skillsFilter)
     );
-  }, [jobs, query, locationFilter]);
+  }, [jobs, query, skillsFilter]);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-yellow-50 via-white to-white py-20">
@@ -82,7 +82,7 @@ export default function CareersPage() {
               <button
                 onClick={() => {
                   setQuery("");
-                  setLocationFilter("");
+                  setSkillsFilter("");
                 }}
                 className="bg-yellow-400 text-slate-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition"
               >
@@ -114,9 +114,9 @@ export default function CareersPage() {
                     {job.title}
                   </h3>
 
-                  {job.location && (
-                    <p className="mt-1 text-sm text-slate-500">
-                       {job.location}
+                  {job.requiredSkills && (
+                    <p className="mt-1 text-sm text-yellow-600 font-semibold">
+                      🛠️ {job.requiredSkills}
                     </p>
                   )}
 

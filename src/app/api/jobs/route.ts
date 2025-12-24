@@ -4,22 +4,46 @@ import Job from "@/models/Job";
 
 // GET all jobs
 export async function GET() {
-  await connectDB();
-  const jobs = await Job.find().sort({ createdAt: -1 });
-  return NextResponse.json(jobs);
+  try {
+    await connectDB();
+    const jobs = await Job.find().sort({ createdAt: -1 });
+    return NextResponse.json(jobs);
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to fetch jobs" },
+      { status: 500 }
+    );
+  }
 }
 
 // CREATE job
 export async function POST(req: Request) {
-  const { title, description, location } = await req.json();
+  try {
+    const { title, description, requiredSkills } = await req.json();
 
-  await connectDB();
+    // Validation
+    if (!title || !description || !requiredSkills) {
+      return NextResponse.json(
+        { error: "Missing required fields: title, description, requiredSkills" },
+        { status: 400 }
+      );
+    }
 
-  const job = await Job.create({
-    title,
-    description,
-    location,
-  });
+    await connectDB();
 
-  return NextResponse.json(job);
+    const job = await Job.create({
+      title,
+      description,
+      requiredSkills,
+    });
+
+    return NextResponse.json(job);
+  } catch (error) {
+    console.error("Error creating job:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to create job" },
+      { status: 500 }
+    );
+  }
 }

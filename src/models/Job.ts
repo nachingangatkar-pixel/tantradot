@@ -10,7 +10,7 @@ const JobSchema = new Schema(
       type: String,
       required: true,
     },
-    location: {
+    requiredSkills: {
       type: String,
       required: true,
     },

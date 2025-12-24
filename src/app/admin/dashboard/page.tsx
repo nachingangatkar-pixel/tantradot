@@ -2,12 +2,13 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Job = {
   _id: string;
   title: string;
   description: string;
-  location: string;
+  requiredSkills: string;
 };
 
 export default function Dashboard() {
@@ -16,24 +17,22 @@ export default function Dashboard() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
+  const [requiredSkills, setRequiredSkills] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
-  // 🔐 AUTH CHECK (uses server `/api/admin/me`).
-  // Cache the positive auth result in sessionStorage to avoid repeated
-  // calls (React strict mode and re-mounts can cause duplicate requests).
   const authCheckedRef = useRef(false);
   const jobsFetchingRef = useRef(false);
 
   function clearForm() {
     setTitle("");
     setDescription("");
-    setLocation("");
+    setRequiredSkills("");
     setEditingId(null);
+    setShowForm(false);
   }
 
   useEffect(() => {
-    // prevent duplicate auth-checks in StrictMode
     const cancelled = { v: false } as { v: boolean };
     if (authCheckedRef.current) {
       const cached = typeof window !== "undefined" && sessionStorage.getItem("admin_authenticated");
@@ -69,43 +68,77 @@ export default function Dashboard() {
     };
   }, [router]);
 
-  
-
   useEffect(() => {
     if (authorized) fetchJobs();
   }, [authorized]);
 
   async function saveJob() {
-    const payload = { title, description, location };
-
-    if (editingId) {
-      await fetch(`/api/jobs/${editingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-    } else {
-      await fetch("/api/jobs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+    // Validate required fields
+    if (!title.trim()) {
+      alert("Please enter a job title");
+      return;
+    }
+    if (!description.trim()) {
+      alert("Please enter a job description");
+      return;
+    }
+    if (!requiredSkills.trim()) {
+      alert("Please enter required skills");
+      return;
     }
 
-    // Clear jobs cache and refresh
+    const payload = { title, description, requiredSkills };
+
     try {
-      sessionStorage.removeItem("admin_jobs");
-    } catch (e) {}
-    clearForm();
-    fetchJobs();
+      const url = editingId ? `/api/jobs/${editingId}` : "/api/jobs";
+      const method = editingId ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to save job"}`);
+        return;
+      }
+
+      try {
+        sessionStorage.removeItem("admin_jobs");
+      } catch (e) {}
+      
+      clearForm();
+      await fetchJobs();
+      alert(`Job ${editingId ? "updated" : "created"} successfully!`);
+    } catch (error) {
+      console.error("Error saving job:", error);
+      alert(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
   }
 
   async function deleteJob(id: string) {
-    await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+    if (!confirm("Are you sure you want to delete this job posting?")) return;
     try {
-      sessionStorage.removeItem("admin_jobs");
-    } catch (e) {}
-    fetchJobs();
+      const response = await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to delete job"}`);
+        return;
+      }
+
+      try {
+        sessionStorage.removeItem("admin_jobs");
+      } catch (e) {}
+      
+      await fetchJobs();
+      alert("Job deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting job:", error);
+      alert(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
   }
 
   async function logout() {
@@ -124,7 +157,6 @@ export default function Dashboard() {
   }
 
   async function fetchJobs() {
-    // Try session cache first to avoid duplicate network calls in dev/strict-mode
     try {
       const cached = sessionStorage.getItem("admin_jobs");
       if (cached) {
@@ -133,7 +165,6 @@ export default function Dashboard() {
       }
     } catch (e) {}
 
-    // Prevent concurrent fetches
     if (jobsFetchingRef.current) return;
     jobsFetchingRef.current = true;
 
@@ -148,48 +179,200 @@ export default function Dashboard() {
       jobsFetchingRef.current = false;
     }
   }
+
   if (!authorized) return null;
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="flex justify-between mb-4">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <button onClick={logout} className="bg-black text-white px-4 py-2">
-          Logout
-        </button>
-      </div>
+    <main className="min-h-screen bg-linear-to-b from-white via-slate-50 to-white py-12 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">
+              Admin Dashboard
+            </h1>
+            <p className="text-lg text-slate-600">
+              Manage job postings and career opportunities
+            </p>
+          </div>
+          <button
+            onClick={logout}
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-lg transition"
+          >
+            Logout
+          </button>
+        </div>
 
-      {/* FORM */}
-      <div className="space-y-2">
-        <input className="border p-2 w-full" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
-        <input className="border p-2 w-full" placeholder="Location" value={location} onChange={e => setLocation(e.target.value)} />
-        <textarea className="border p-2 w-full" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
-        <button onClick={saveJob} className="bg-green-600 text-white px-4 py-2">
-          {editingId ? "Update" : "Add"}
-        </button>
-      </div>
+        {/* Stats */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-400">
+            <p className="text-slate-600 text-sm font-semibold uppercase">Total Jobs</p>
+            <p className="text-4xl font-bold text-slate-900 mt-2">{jobs.length}</p>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-blue-400">
+            <p className="text-slate-600 text-sm font-semibold uppercase">Active</p>
+            <p className="text-4xl font-bold text-slate-900 mt-2">{jobs.filter(j => j.title).length}</p>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-green-400">
+            <p className="text-slate-600 text-sm font-semibold uppercase">Status</p>
+            <p className="text-2xl font-bold text-green-600 mt-2">✓ Operational</p>
+          </div>
+        </div>
 
-      {/* JOBS */}
-      <ul className="mt-6 space-y-3">
-        {jobs.map(job => (
-          <li key={job._id} className="border p-3">
-            <h3 className="font-bold">{job.title}</h3>
-            <p>{job.description}</p>
-            <p className="text-sm">{job.location}</p>
+        {/* Add Job Button */}
+        <div className="mb-8">
+          <button
+            onClick={() => {
+              setShowForm(!showForm);
+              if (showForm) clearForm();
+            }}
+            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-8 py-3 rounded-lg transition transform hover:scale-105"
+          >
+            {showForm ? "Cancel" : "+ Add New Job"}
+          </button>
+        </div>
 
-            <div className="mt-2 space-x-2">
-              <button onClick={() => {
-                setTitle(job.title);
-                setDescription(job.description);
-                setLocation(job.location);
-                setEditingId(job._id);
-              }} className="bg-blue-600 text-white px-3">Edit</button>
+        {/* Add/Edit Job Form */}
+        {showForm && (
+          <div className="bg-white rounded-xl shadow-lg border border-yellow-100 p-8 mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              {editingId ? "Edit Job Posting" : "Create New Job Posting"}
+            </h2>
 
-              <button onClick={() => deleteJob(job._id)} className="bg-red-600 text-white px-3">Delete</button>
+            <div className="space-y-5">
+              {/* Job Title */}
+              <div>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">
+                  Job Title
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g., Senior React Developer"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition"
+                />
+              </div>
+
+              {/* Required Skills */}
+              <div>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">
+                  Required Skills
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g., React, Node.js, TypeScript"
+                  value={requiredSkills}
+                  onChange={(e) => setRequiredSkills(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">
+                  Description
+                </label>
+                <textarea
+                  placeholder="Job description, responsibilities, and requirements..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={6}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition resize-none"
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={saveJob}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition"
+                >
+                  {editingId ? "Update Job" : "Create Job"}
+                </button>
+                <button
+                  onClick={clearForm}
+                  className="flex-1 bg-slate-300 hover:bg-slate-400 text-slate-900 font-bold py-3 rounded-lg transition"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </div>
+        )}
+
+        {/* Jobs List */}
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">
+            Job Postings ({jobs.length})
+          </h2>
+
+          {jobs.length === 0 ? (
+            <div className="bg-white rounded-lg shadow p-12 text-center">
+              <p className="text-slate-600 text-lg">No job postings yet.</p>
+              <p className="text-slate-500">Create your first job posting to get started!</p>
+            </div>
+          ) : (
+            <div className="grid gap-6">
+              {jobs.map((job) => (
+                <div
+                  key={job._id}
+                  className="bg-white rounded-xl shadow-md border border-slate-200 hover:shadow-lg transition p-6"
+                >
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">{job.title}</h3>
+                    <p className="text-sm text-yellow-600 font-semibold flex items-center gap-2">
+                      🛠️ {job.requiredSkills}
+                    </p>
+                  </div>
+
+                  <p className="text-slate-600 mb-6 leading-relaxed">{job.description}</p>
+
+                  <div className="flex gap-3 flex-wrap">
+                    <button
+                      onClick={() => {
+                        setTitle(job.title);
+                        setDescription(job.description);
+                        setRequiredSkills(job.requiredSkills);
+                        setEditingId(job._id);
+                        setShowForm(true);
+                        window.scrollTo(0, 0);
+                      }}
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition"
+                    >
+                      ✏️ Edit
+                    </button>
+
+                    <button
+                      onClick={() => deleteJob(job._id)}
+                      className="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg transition"
+                    >
+                      🗑️ Delete
+                    </button>
+
+                    <button
+                      onClick={() => router.push(`/careers#${job._id}`)}
+                      className="bg-slate-600 hover:bg-slate-700 text-white font-semibold px-5 py-2 rounded-lg transition"
+                    >
+                      👁️ View
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/"
+            className="inline-flex items-center text-sm font-semibold text-slate-700 hover:text-yellow-600 transition"
+          >
+            ← Back to Home
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }
