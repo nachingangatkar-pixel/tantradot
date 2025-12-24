@@ -12,7 +12,7 @@ export default function CTAWithLogoColor() {
   useEffect(() => {
     // create an Image to draw on canvas and sample pixels
     const img = new Image();
-    img.src = logo.src || logo;
+    img.src = typeof logo === "string" ? logo : logo.src;
     img.crossOrigin = "anonymous";
 
     const handleLoad = () => {
