@@ -23,5 +23,8 @@ const JobSchema = new Schema(
   { timestamps: true }
 );
 
-const Job = models.Job || mongoose.model("Job", JobSchema);
+// Clear any existing model to force schema refresh
+delete models.Job;
+
+const Job = mongoose.model("Job", JobSchema);
 export default Job;
