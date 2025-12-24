@@ -1,0 +1,17 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/admin
+Disallow: /.next
+
+# Specific rules for better crawling
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemaps
+Sitemap: https://tantradot.com/sitemap.xml
+Host: https://tantradot.com
