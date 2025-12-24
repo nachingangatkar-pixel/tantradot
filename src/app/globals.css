@@ -2,13 +2,13 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #ffffff;
   --brand: #f59e0b; /* default brand color (Tailwind yellow-400). Replace with your logo color if needed */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0b1220;
+    --background: #ffffff;
     --foreground: #e6eef8;
   }
 }
@@ -176,5 +176,9 @@ body {
   color: white;
   font-size: 10px;
 }   
-
-/* End of globals.css */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #e6eef8;    
+  }     
+}
