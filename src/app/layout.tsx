@@ -158,9 +158,6 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="canonical" href="https://tantradot.in" />
-        <link rel="icon" href="/images/onlylogo.png" type="image/png" />
-        <link rel="shortcut icon" href="/images/onlylogo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/onlylogo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -177,7 +174,7 @@ export default function RootLayout({
                 <div className="floating-whatsapp-container">
         <WhatsAppButton
           phone="+917406127509"
-          message="Hi! How can we help you with  Tantra Dot today? ."
+          message="Hi, I’m interested in your services. Please share more details."
         />
       </div>
         </main>
