@@ -158,6 +158,9 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="canonical" href="https://tantradot.in" />
+        <link rel="icon" href="/images/onlylogo.png" type="image/png" />
+        <link rel="shortcut icon" href="/images/onlylogo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/onlylogo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
