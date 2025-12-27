@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
                 id="email"
                 type="email"
                 required
-                placeholder="admin@tantradot.com"
+                placeholder="admin@tantradot.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition"

@@ -90,8 +90,8 @@ export default function ContactPage() {
               <div className="p-6 bg-white rounded-2xl shadow-sm flip-card">
                 <div className="flip-card-inner">
                   <h3 className="text-xl font-semibold text-slate-900">📧 Email</h3>
-                  <p className="mt-2 text-slate-700 about-lg">info@tantradot.com</p>
-                  <a href="mailto:info@tantradot.com" className="mt-3 inline-block text-sm text-yellow-600 font-semibold">Send email →</a>
+                  <p className="mt-2 text-slate-700 about-lg">info@tantradot.in</p>
+                  <a href="mailto:info@tantradot.in" className="mt-3 inline-block text-sm text-yellow-600 font-semibold">Send email →</a>
                 </div>
               </div>
 

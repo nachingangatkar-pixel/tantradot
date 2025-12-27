@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///home/basavaraju/Desktop/tantradotclone/tantradot/src/app/api/admin/logout/route.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\n\nexport async function POST() {\n  const res = NextResponse.json({ message: \"Logged out\" });\n\n  res.cookies.set(\"admin_token\", \"\", {\n    httpOnly: true,\n    path: \"/\",\n    maxAge: 0,\n  });\n\n  return res;\n}\n"],"names":[],"mappings":";;;;AAAA;;AAEO,eAAe;IACpB,MAAM,MAAM,gJAAY,CAAC,IAAI,CAAC;QAAE,SAAS;IAAa;IAEtD,IAAI,OAAO,CAAC,GAAG,CAAC,eAAe,IAAI;QACjC,UAAU;QACV,MAAM;QACN,QAAQ;IACV;IAEA,OAAO;AACT"}}]
+}

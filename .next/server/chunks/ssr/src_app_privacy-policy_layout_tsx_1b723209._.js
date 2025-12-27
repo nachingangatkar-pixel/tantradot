@@ -1,0 +1,3 @@
+module.exports=[97813,a=>{"use strict";var b=a.i(7997);function c({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>c,"metadata",0,{title:"Privacy Policy | Data Protection | TantraDOT Technologies",description:"Privacy Policy for TantraDOT Technologies. We are committed to protecting your personal data and your privacy rights.",keywords:["privacy policy","data protection","GDPR compliance","personal data","privacy statement"],openGraph:{title:"Privacy Policy | TantraDOT Technologies",description:"Learn how we protect your data and privacy.",url:"https://tantradot.com/privacy-policy"}}])}];
+
+//# sourceMappingURL=src_app_privacy-policy_layout_tsx_1b723209._.js.map

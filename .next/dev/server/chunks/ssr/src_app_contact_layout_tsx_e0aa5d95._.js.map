@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/basavaraju/Desktop/tantradotclone/tantradot/src/app/contact/layout.tsx"],"sourcesContent":["import type { Metadata } from \"next\";\n\nexport const metadata: Metadata = {\n  title: \"Contact Us | TantraDOT Technologies\",\n  description:\n    \"Get in touch with TantraDOT. Contact our team for web development, digital marketing, or IT recruitment inquiries.\",\n  keywords: [\n    \"contact us\",\n    \"web development inquiry\",\n    \"software development contact\",\n    \"TantraDOT contact\",\n    \"customer support\",\n  ],\n  openGraph: {\n    title: \"Contact TantraDOT Technologies\",\n    description: \"Get in touch with our team. We're here to help with your project needs.\",\n    url: \"https://tantradot.com/contact\",\n  },\n};\n\nexport default function ContactLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return <>{children}</>;\n}\n"],"names":[],"mappings":";;;;;;;;AAEO,MAAM,WAAqB;IAChC,OAAO;IACP,aACE;IACF,UAAU;QACR;QACA;QACA;QACA;QACA;KACD;IACD,WAAW;QACT,OAAO;QACP,aAAa;QACb,KAAK;IACP;AACF;AAEe,SAAS,cAAc,EACpC,QAAQ,EAGT;IACC,qBAAO;kBAAG;;AACZ"}}]
+}

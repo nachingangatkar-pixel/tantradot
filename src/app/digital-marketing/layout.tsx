@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Digital Marketing Services | TantraDOT Technologies",
     description: "SEO, content marketing, and digital strategy to grow your online presence.",
-    url: "https://tantradot.com/digital-marketing",
+    url: "https://tantradot.in/digital-marketing",
   },
 };
 

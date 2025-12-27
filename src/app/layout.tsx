@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "TantraDOT Technologies | Custom Web Development & Software Solutions",
     description:
       "Build scalable web applications, backend systems, and grow your digital presence with TantraDOT. Expert developers for startups and enterprises.",
-    url: "https://tantradot.com",
+    url: "https://tantradot.in",
     siteName: "TantraDOT Technologies",
     images: [
       {
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://tantradot.com",
+    canonical: "https://tantradot.in",
   },
 };
 
@@ -69,8 +69,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "TantraDOT Technologies",
-    url: "https://tantradot.com",
-    logo: "https://tantradot.com/images/onlylogo.png",
+    url: "https://tantradot.in",
+    logo: "https://tantradot.in/images/onlylogo.png",
     description:
       "Custom web development, backend systems, digital marketing, and IT talent acquisition",
     sameAs: [
@@ -84,7 +84,7 @@ export default function RootLayout({
       "@type": "ContactPoint",
       contactType: "Business Development",
       telephone: "+91-7406127509",
-      email: "contact@tantradot.com",
+      email: "contact@tantradot.in",
     },
     address: {
       "@type": "PostalAddress",
@@ -96,7 +96,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "TantraDOT Technologies",
-    url: "https://tantradot.com",
+    url: "https://tantradot.in",
     areaServed: [
       "IN",
       "US",
@@ -157,7 +157,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="theme-color" content="#FFFFFF" />
-        <link rel="canonical" href="https://tantradot.com" />
+        <link rel="canonical" href="https://tantradot.in" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

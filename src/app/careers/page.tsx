@@ -132,7 +132,7 @@ export default function CareersPage() {
                     </span>
 
                     <a
-                      href={`mailto:careers@tantradot.com?subject=Application for ${job.title}`}
+                      href={`mailto:careers@tantradot.in?subject=Application for ${job.title}`}
                       className="bg-yellow-400 text-slate-900 px-4 py-2 rounded-md text-sm font-semibold hover:bg-yellow-500 transition"
                     >
                       Apply

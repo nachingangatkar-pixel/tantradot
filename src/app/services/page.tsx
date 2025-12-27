@@ -143,7 +143,7 @@ export default function ServicesPage() {
             { title: "Dedicated Team", emoji: "👥", desc: "Dedicated developers for your project. Exclusive focus and long-term partnership." },
           ].map((model, i) => (
             <AnimateOnView key={model.title} animation="animate-flip" delay={`${i * 120}ms`}>
-              <div className="bg-gradient-to-br from-yellow-50 to-white p-8 rounded-xl border-2 border-yellow-200 shadow-md hover:shadow-lg transition text-center">
+              <div className="bg-linear-to-br from-yellow-50 to-white p-8 rounded-xl border-2 border-yellow-200 shadow-md hover:shadow-lg transition text-center">
                 <div className="text-5xl mb-4">{model.emoji}</div>
                 <h3 className="text-xl font-semibold text-slate-900">{model.title}</h3>
                 <p className="mt-4 text-slate-700">{model.desc}</p>

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/basavaraju/Desktop/tantradotclone/tantradot/src/app/careers/layout.tsx"],"sourcesContent":["import type { Metadata } from \"next\";\n\nexport const metadata: Metadata = {\n  title: \"Careers | Join Our Team | TantraDOT Technologies\",\n  description:\n    \"Join TantraDOT! We're hiring talented developers, designers, and tech professionals. Explore exciting career opportunities.\",\n  keywords: [\n    \"careers\",\n    \"job opportunities\",\n    \"hiring\",\n    \"software developer jobs\",\n    \"tech jobs\",\n    \"developer careers\",\n  ],\n  openGraph: {\n    title: \"Careers at TantraDOT Technologies\",\n    description: \"Join our team and build amazing products with us.\",\n    url: \"https://tantradot.com/careers\",\n  },\n};\n\nexport default function CareersLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return <>{children}</>;\n}\n"],"names":[],"mappings":";;;;;;;;AAEO,MAAM,WAAqB;IAChC,OAAO;IACP,aACE;IACF,UAAU;QACR;QACA;QACA;QACA;QACA;QACA;KACD;IACD,WAAW;QACT,OAAO;QACP,aAAa;QACb,KAAK;IACP;AACF;AAEe,SAAS,cAAc,EACpC,QAAQ,EAGT;IACC,qBAAO;kBAAG;;AACZ"}}]
+}

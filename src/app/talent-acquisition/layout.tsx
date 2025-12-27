@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Talent Acquisition Services | TantraDOT Technologies",
     description: "Find and recruit top technical talent for your organization.",
-    url: "https://tantradot.com/talent-acquisition",
+    url: "https://tantradot.in/talent-acquisition",
   },
 };
 

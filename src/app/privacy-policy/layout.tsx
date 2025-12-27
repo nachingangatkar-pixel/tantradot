@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Privacy Policy | TantraDOT Technologies",
     description: "Learn how we protect your data and privacy.",
-    url: "https://tantradot.com/privacy-policy",
+    url: "https://tantradot.in/privacy-policy",
   },
 };
 

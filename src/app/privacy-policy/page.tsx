@@ -74,7 +74,7 @@ export default function PrivacyPolicyPage() {
               If you have any questions about this Privacy Policy, please contact us at:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-slate-700 mt-4">
-              <li>Email: info@tantradot.com</li>
+              <li>Email: info@tantradot.in</li>
               <li>Address: Bengaluru, Karnataka, India</li>
             </ul>
           </div>
