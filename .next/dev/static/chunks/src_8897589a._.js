@@ -100,11 +100,11 @@ var _s = __turbopack_context__.k.signature();
 function CareersPage() {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(24);
-    if ($[0] !== "5304279042d988ee6c926a8c56f7fd71dea48a8c3f4e612ace825eaf04368082") {
+    if ($[0] !== "c3c0705aaa128dc1fb87b7925fb584feb5b550f34211dcee70b334fe742d9362") {
         for(let $i = 0; $i < 24; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "5304279042d988ee6c926a8c56f7fd71dea48a8c3f4e612ace825eaf04368082";
+        $[0] = "c3c0705aaa128dc1fb87b7925fb584feb5b550f34211dcee70b334fe742d9362";
     }
     let t0;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
@@ -434,7 +434,7 @@ function _CareersPageFilteredMap(job, i) {
                             columnNumber: 546
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                            href: `mailto:careers@tantradot.com?subject=Application for ${job.title}`,
+                            href: `mailto:careers@tantradot.in?subject=Application for ${job.title}`,
                             className: "bg-yellow-400 text-slate-900 px-4 py-2 rounded-md text-sm font-semibold hover:bg-yellow-500 transition",
                             children: "Apply"
                         }, void 0, false, {

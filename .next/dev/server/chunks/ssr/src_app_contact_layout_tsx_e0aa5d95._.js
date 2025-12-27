@@ -23,7 +23,7 @@ const metadata = {
     openGraph: {
         title: "Contact TantraDOT Technologies",
         description: "Get in touch with our team. We're here to help with your project needs.",
-        url: "https://tantradot.com/contact"
+        url: "https://tantradot.in/contact"
     }
 };
 function ContactLayout({ children }) {

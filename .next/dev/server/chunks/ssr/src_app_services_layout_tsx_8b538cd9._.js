@@ -28,7 +28,7 @@ const metadata = {
     openGraph: {
         title: "Services | TantraDOT Technologies",
         description: "Explore our web development, backend, and cloud services.",
-        url: "https://tantradot.com/services"
+        url: "https://tantradot.in/services"
     }
 };
 function ServicesLayout({ children }) {

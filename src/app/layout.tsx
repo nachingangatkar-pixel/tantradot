@@ -168,9 +168,9 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="max-h-screen bg-amber-100 flex flex-col">
+      <body className="bg-amber-100 flex flex-col min-h-screen">
         <Header />
-        <main className="container mx-auto p-4 bg-white">{children}
+        <main className="flex-1 container mx-auto p-4 bg-white overflow-y-auto">{children}
                 <div className="floating-whatsapp-container">
         <WhatsAppButton
           phone="+917406127509"

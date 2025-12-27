@@ -24,7 +24,7 @@ const metadata = {
     openGraph: {
         title: "Careers at TantraDOT Technologies",
         description: "Join our team and build amazing products with us.",
-        url: "https://tantradot.com/careers"
+        url: "https://tantradot.in/careers"
     }
 };
 function CareersLayout({ children }) {

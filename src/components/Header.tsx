@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
@@ -8,6 +8,16 @@ import Logo from "@/images/logo.png";
 
 export default function Header() {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const links = [
     { href: "/", label: "Home" },
@@ -17,7 +27,7 @@ export default function Header() {
     { href: "/contact", label: "Contact" },
   ];
 
-  const headerClass = "sticky top-0 z-50 bg-white md:bg-white/80 md:backdrop-blur-sm text-slate-900 border-b border-slate-200";
+  const headerClass = `sticky top-0 z-50 bg-white md:bg-white/80 md:backdrop-blur-sm text-slate-900 border-b border-slate-200 transition-shadow duration-300 ${hasScrolled ? "shadow-md" : ""}`;
 
   const desktopLinkColor = "text-slate-700 hover:text-slate-900";
   const mobileMenuBg = "bg-white text-slate-700 border-slate-200";
